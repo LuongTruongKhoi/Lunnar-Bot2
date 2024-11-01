@@ -1,30 +1,24 @@
-﻿module.exports.config = {
-  name: "hi",
+module.exports.config = {
+  name: "bye",
   version: "1.0.0",
   hasPermssion: 0,
-  credit: " :)",
-  description: "hi gửi sticker",
+  credit: "",
+  description: "bye gửi sticker",
   commandCategory: "Quản Trị Viên",
   usages: "[text]",
   cooldowns: 0
 }
 
 module.exports.handleEvent = async ({ event, api, Users }) => {
-  let KEY = ["hello",
-    "hi",
-    "hai",
-    "chào",
-    "chao",
-    "hí",
-    "híí",
-    "hì",
-    "hìì",
-    "lô",
-    "hii",
-    "helo",
-    "hê nhô"];
+  let KEY = ["bye",
+    "bai",
+    "bye",
+    "off",
+    "byee",
+    "pai",
+    "paii"];
   let thread = global.data.threadData.get(event.threadID) || {};
-  if (typeof thread["hi"] == "undefined", thread["hi"] == false) return
+  if (typeof thread["bye"] == "undefined", thread["bye"] == false) return
   else {
   if (event.body && KEY.includes(event.body.toLowerCase()) !== false) {
     let data = [
@@ -66,20 +60,20 @@ module.exports.handleEvent = async ({ event, api, Users }) => {
       tag: name,
       id: event.senderID
     })
-    let msg = {body: `┏━━━━━━━━━━━━━━━━━━━━┓\n┣➤💬 Xin chào ${name}\n┣➤💓 chúc bạn một buổi ${session} ${text}\n┣➤🩷 Love ${name}\n┣➤⏰ Bây giờ là : ${moment().tz("Asia/Ho_Chi_Minh").format("HH:mm:ss || DD/MM/YYYY")}\n┗━━━━━━━━━━━━━━━━━━━━┛`, mentions}
-    api.sendMessage( msg , event.threadID, (e, info) => {
+    let msg = {body: `┏━━━━━━━━━━━━━━━━━━━━┓\n┣➤👋 Tạm biệt ${name}\n┣➤😻 Chúc bạn một buổi ${session} ${text}\n┣➤❤ Nhớ quay lại sớm để tương tác với bot nha\n┣➤💕 I love ${name}\n┣➤⏰ Bây giờ là : ${moment().tz("Asia/Ho_Chi_Minh").format("HH:mm:ss || DD/MM/YYYY")}\n┗━━━━━━━━━━━━━━━━━━━━┛`, mentions}
+    api.sendMessage(msg, event.threadID, (e, info) => {
       setTimeout(() => {
         api.sendMessage({sticker: sticker}, event.threadID);
       }, 100)
     }, event.messageID)
   }
       }
-}
-
+},
+  
 module.exports.languages = {
   "vi": {
     "on": "Bật",
-    "off": "Tắt",
+    "off": "Tắt",
     "successText": `${this.config.name} thành công`,
   },
   "en": {
@@ -92,11 +86,11 @@ module.exports.languages = {
 module.exports.run = async ({ event, api, Threads, getText }) => {
   let { threadID, messageID } = event;
   let data = (await Threads.getData(threadID)).data;
-  if (typeof data["hi"] == "undefined" || data["hi"] == true) data["hi"] = false;
-  else data["hi"] = true;
+  if (typeof data["bye"] == "undefined" || data["bye"] == true) data["bye"] = false;
+  else data["bye"] = true;
   await Threads.setData(threadID, {
     data
   });
   global.data.threadData.set(threadID, data);
-  return api.sendMessage(`${(data["hi"] == false) ? getText("off") : getText("on")} ${getText("successText")}`, threadID, messageID);
-}
+  return api.sendMessage(`${(data["bye"] == false) ? getText("off") : getText("on")} ${getText("successText")}`, threadID, messageID);
+      }
